@@ -34,6 +34,20 @@ jobs:
       - name: Build iOS app
         run: flutter build ios --release --no-codesign
         
+      
+      - name: Create IPA from .app
+        run: |
+            mkdir -p build/ios/iphoneos/Payload
+            mv build/ios/iphoneos/Runner.app build/ios/iphoneos/Payload/
+            cd build/ios/iphoneos
+            zip -r app.ipa Payload
+            rm -rf Payload
+            
+      - name: Upload IPA
+        uses: actions/upload-artifact@v3
+        with:
+          name: app.ipa
+          path: build/ios/iphoneos/app.ipa
       # - name: Package .ipa file
       #   run: |
       #     cd build/ios/iphoneos
@@ -48,18 +62,18 @@ jobs:
       #         -exportOptionsPlist ExportOptions.plist \
       #         -exportPath build/ios/iphoneos
 
-      - name: Create .xcarchive
-        run: |
-            cd ios
-            xcodebuild -scheme Runner -archivePath build/ios/iphoneos/Runner.xcarchive archive
+      # - name: Create .xcarchive
+      #   run: |
+      #       cd ios
+      #       xcodebuild -scheme Runner -archivePath build/ios/iphoneos/Runner.xcarchive archive
 
-      - name: Package .ipa file
-        run: |
-            cd ios
-            xcodebuild -exportArchive \
-              -archivePath build/ios/iphoneos/Runner.xcarchive \
-              -exportOptionsPlist ExportOptions.plist \
-              -exportPath build/ios/iphoneos
+      # - name: Package .ipa file
+      #   run: |
+      #       cd ios
+      #       xcodebuild -exportArchive \
+      #         -archivePath build/ios/iphoneos/Runner.xcarchive \
+      #         -exportOptionsPlist ExportOptions.plist \
+      #         -exportPath build/ios/iphoneos
             
         
 
