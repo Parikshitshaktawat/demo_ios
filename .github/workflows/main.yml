@@ -34,12 +34,18 @@ jobs:
       - name: Build iOS app
         run: flutter build ios --release --no-codesign
         
+      # - name: Package .ipa file
+      #   run: |
+      #     cd build/ios/iphoneos
+      #     xcodebuild -exportArchive \
+      #     -archivePath Runner.xcarchive \
+      #     -exportPath Runner.ipa \
+      #     -exportOptionsPlist ExportOptions.plist
       - name: Package .ipa file
         run: |
-          cd build/ios/iphoneos
-          xcodebuild -exportArchive \
-          -archivePath Runner.xcarchive \
-          -exportPath Runner.ipa \
-          -exportOptionsPlist ExportOptions.plist
+            cd ios
+            xcodebuild -archivePath build/ios/iphoneos/Runner.xcarchive \
+              -exportOptionsPlist ExportOptions.plist \
+              -exportPath build/ios/iphoneos
         
 
