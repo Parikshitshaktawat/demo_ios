@@ -41,11 +41,19 @@ jobs:
       #     -archivePath Runner.xcarchive \
       #     -exportPath Runner.ipa \
       #     -exportOptionsPlist ExportOptions.plist
+      # - name: Package .ipa file
+      #   run: |
+      #       cd ios
+      #       xcodebuild -archivePath build/ios/iphoneos/Runner.xcarchive \
+      #         -exportOptionsPlist ExportOptions.plist \
+      #         -exportPath build/ios/iphoneos
+
       - name: Package .ipa file
         run: |
-            cd ios
-            xcodebuild -archivePath build/ios/iphoneos/Runner.xcarchive \
+            xcodebuild -exportArchive \
+              -archivePath build/ios/iphoneos/Runner.xcarchive \
               -exportOptionsPlist ExportOptions.plist \
               -exportPath build/ios/iphoneos
+            
         
 
