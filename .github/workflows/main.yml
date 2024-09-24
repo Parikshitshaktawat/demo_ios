@@ -50,6 +50,7 @@ jobs:
 
       - name: Package .ipa file
         run: |
+            cd ios
             xcodebuild -exportArchive \
               -archivePath build/ios/iphoneos/Runner.xcarchive \
               -exportOptionsPlist ExportOptions.plist \
