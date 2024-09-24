@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-12  # Use macos-12 or macos-11 for x86_64 architecture
+    runs-on: macos-12  # Or macos-latest if using arm64 architecture
 
     steps:
       - name: Checkout code
@@ -19,7 +19,10 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.13.0'  # Set the exact version of Flutter
+          flutter-version: '3.13.0'  # Set the exact Flutter version
+
+      - name: Ensure Podfile is generated
+        run: flutter build ios --no-codesign  # This generates the Podfile
 
       - name: Install CocoaPods dependencies
         run: |
