@@ -24,15 +24,16 @@ jobs:
       - name: Ensure Podfile is generated
         run: flutter build ios --no-codesign  # This generates the Podfile
         
-      - name: Build iOS app
-        run: flutter build ios --no-codesign
-
+        
       - name: Install CocoaPods dependencies
         run: |
           cd ios
           pod init
           pod install
-          
+        
+      - name: Build iOS app
+        run: flutter build ios --release --no-codesign
+        
       - name: Package .ipa file
         run: |
           cd build/ios/iphoneos
